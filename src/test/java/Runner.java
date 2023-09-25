@@ -58,12 +58,22 @@ public class Runner {
         dashboardPage.sortProducts(PRICE_HIGH);
     }
 
+    public void addToCart() {
+        boolean isProdAdded = dashboardPage.addToCart();
+        boolean isProdRemoved = dashboardPage.removeProduct();
+
+        if(isProdAdded && isProdRemoved) {
+            System.out.println("Add to cart/remove successful");
+        }
+
+    }
+
     public static void main(String[] args) throws Exception {
         Runner runner = new Runner();
         try {
             runner.login(Utils.getEmail(), Utils.getPassword());
             runner.sortProducts();
-            runner.dashboardPage.addToCart();
+            runner.addToCart();
 
         } catch (Exception e) {
             e.printStackTrace();

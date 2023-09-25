@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 
 public class DashboardPage {
@@ -52,7 +53,7 @@ public class DashboardPage {
         }
     }
 
-    public void addToCart() {
+    public boolean addToCart() {
         final String labelPath = "//a[@id='item_4_title_link']//div[@class='inventory_item_name']";
         String label = driver.findElement(By.xpath(labelPath)).getText();
         WebElement addToCartBtn = driver.findElement(By.id("add-to-cart-sauce-labs-backpack"));
@@ -61,8 +62,16 @@ public class DashboardPage {
         cartBtn.click();
 
         String cartItemLabel = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(labelPath))).getText();
-        if(cartItemLabel.compareTo(label) == 0) {
-            System.out.println("Cart Item added successfully!");
+        return cartItemLabel.compareTo(label) == 0;
+    }
+
+    public boolean removeProduct() {
+        WebElement removeBtn = driver.findElement(By.id("remove-sauce-labs-backpack"));
+        removeBtn.click();
+        List<WebElement> cartList = driver.findElements(By.className("cart-item"));
+        if(cartList.size() < 1) {
+            return true;
         }
+        return false;
     }
 }
