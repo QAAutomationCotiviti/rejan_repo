@@ -9,15 +9,18 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.DashboardPage;
 import pages.LoginPage;
+import pages.OrderPage;
 import utils.Utils;
 
 import java.time.Duration;
+import java.util.List;
 
 import static constants.SortValues.*;
 
 public class Runner {
     private WebDriver driver;
     private LoginPage loginPage;
+    private OrderPage orderPage;
     private DashboardPage dashboardPage;
     private final String invalidCreds = "Epic sadface: Username and password do not match any user in this service";
     private final String passwordEmpty = "Epic sadface: Password is required";
@@ -31,6 +34,7 @@ public class Runner {
         driver.get("https://www.saucedemo.com");
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
+        orderPage = new OrderPage(driver);
     }
 
     public void login(String email, String password, String message) {
@@ -52,20 +56,45 @@ public class Runner {
     }
 
     public void sortProducts() {
-        dashboardPage.sortProducts(NAME_ASC);
-        dashboardPage.sortProducts(NAME_DESC);
-        dashboardPage.sortProducts(PRICE_LOW);
-        dashboardPage.sortProducts(PRICE_HIGH);
+        List<WebElement> ascList = dashboardPage.sortProducts(NAME_ASC);
+        List<WebElement> descList = dashboardPage.sortProducts(NAME_DESC);
+        List<WebElement> ascPriceList = dashboardPage.sortProducts(PRICE_LOW);
+        List<WebElement> descPriceList = dashboardPage.sortProducts(PRICE_HIGH);
+
+        displayProducts("ASC LIST", ascList);
+        displayProducts("DESC LIST", descList);
+        displayProducts("ASC PRICE LIST", ascPriceList);
+        displayProducts("DESC PRICE LIST", descPriceList);
+
+
     }
 
     public void addToCart() {
-        boolean isProdAdded = dashboardPage.addToCart();
-        boolean isProdRemoved = dashboardPage.removeProduct();
+        boolean isProdAdded = orderPage.addToCart();
+//        boolean isProdRemoved = orderPage.removeProduct();
+        boolean isCheckout = orderPage.checkout();
 
-        if(isProdAdded && isProdRemoved) {
+        if(isProdAdded) {
             System.out.println("Add to cart/remove successful");
         }
 
+        if(isCheckout) {
+            System.out.println("Checkout successful");
+        }
+    }
+
+    public void displayProducts(String type, List<WebElement> elements) {
+        StringBuilder sortType = new StringBuilder("");
+        sortType.append("*************** ");
+        sortType.append(type);
+        sortType.append(" ***************");
+        System.out.println(sortType.toString());
+
+        for(WebElement elem : elements) {
+            System.out.print(elem.getText() + " ");
+        }
+
+        System.out.println();
     }
 
     public static void main(String[] args) throws Exception {

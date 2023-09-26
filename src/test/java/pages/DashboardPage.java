@@ -23,7 +23,7 @@ public class DashboardPage {
         this.driver = driver;
     }
 
-    public void sortProducts(SortValues sortBy) {
+    public List<WebElement> sortProducts(SortValues sortBy) {
         /*
         WebElement selectElem = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("product_sort_container")));
         selectElem.click();
@@ -31,47 +31,34 @@ public class DashboardPage {
         option.click();
         */
 
+        List<WebElement> prodList = null;
         WebElement selectElement = driver.findElement(By.className("product_sort_container"));
         Select select = new Select(selectElement);
 
         switch (sortBy) {
             case NAME_ASC:
                 select.selectByIndex(0);
+                prodList = driver.findElements(By.className("inventory_item_name"));
                 break;
 
             case NAME_DESC:
                 select.selectByIndex(1);
+                prodList = driver.findElements(By.className("inventory_item_name"));
                 break;
 
             case PRICE_LOW:
                 select.selectByIndex(2);
+                prodList = driver.findElements(By.className("inventory_item_name"));
                 break;
 
             case PRICE_HIGH:
                 select.selectByIndex(3);
+                prodList = driver.findElements(By.className("inventory_item_name"));
                 break;
         }
+
+        return prodList;
     }
 
-    public boolean addToCart() {
-        final String labelPath = "//a[@id='item_4_title_link']//div[@class='inventory_item_name']";
-        String label = driver.findElement(By.xpath(labelPath)).getText();
-        WebElement addToCartBtn = driver.findElement(By.id("add-to-cart-sauce-labs-backpack"));
-        WebElement cartBtn = driver.findElement(By.id("shopping_cart_container"));
-        addToCartBtn.click();
-        cartBtn.click();
 
-        String cartItemLabel = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(labelPath))).getText();
-        return cartItemLabel.compareTo(label) == 0;
-    }
-
-    public boolean removeProduct() {
-        WebElement removeBtn = driver.findElement(By.id("remove-sauce-labs-backpack"));
-        removeBtn.click();
-        List<WebElement> cartList = driver.findElements(By.className("cart-item"));
-        if(cartList.size() < 1) {
-            return true;
-        }
-        return false;
-    }
 }
