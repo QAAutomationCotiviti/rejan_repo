@@ -38,22 +38,22 @@ public class DashboardPage {
         switch (sortBy) {
             case NAME_ASC:
                 select.selectByIndex(0);
-                prodList = driver.findElements(By.className("inventory_item_name"));
+                prodList = driver.findElements(By.className("inventory_item_description"));
                 break;
 
             case NAME_DESC:
                 select.selectByIndex(1);
-                prodList = driver.findElements(By.className("inventory_item_name"));
+                prodList = driver.findElements(By.className("inventory_item_description"));
                 break;
 
             case PRICE_LOW:
                 select.selectByIndex(2);
-                prodList = driver.findElements(By.className("inventory_item_name"));
+                prodList = driver.findElements(By.className("inventory_item_description"));
                 break;
 
             case PRICE_HIGH:
                 select.selectByIndex(3);
-                prodList = driver.findElements(By.className("inventory_item_name"));
+                prodList = driver.findElements(By.className("inventory_item_description"));
                 break;
         }
 

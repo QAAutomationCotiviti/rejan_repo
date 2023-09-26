@@ -84,6 +84,7 @@ public class Runner {
     }
 
     public void displayProducts(String type, List<WebElement> elements) {
+        System.out.println();
         StringBuilder sortType = new StringBuilder("");
         sortType.append("*************** ");
         sortType.append(type);
@@ -91,15 +92,27 @@ public class Runner {
         System.out.println(sortType.toString());
 
         for(WebElement elem : elements) {
-            System.out.print(elem.getText() + " ");
+            String title = elem.findElement(By.className("inventory_item_name")).getText();
+            String desc = elem.findElement(By.className("inventory_item_desc")).getText();
+            System.out.println("Title:" + title);
+            System.out.println("Description:" + desc);
         }
-
-        System.out.println();
     }
 
     public static void main(String[] args) throws Exception {
         Runner runner = new Runner();
         try {
+            runner.login("", "", runner.emailEmpty);
+            runner.login("", Utils.getPassword(), runner.emailEmpty);
+            runner.login(Utils.getEmail(), Utils.getInvalidPassword(), runner.invalidCreds);
+            runner.login(Utils.getInvalidEmail(), Utils.getPassword(), runner.invalidCreds);
+            runner.login(Utils.getInvalidEmail(), Utils.getInvalidPassword(), runner.invalidCreds);
+
+            /* LOGIN LOCKED USER*/
+            runner.login(Utils.getLockedUser(), Utils.getPassword(), runner.lockedUser);
+            runner.login(Utils.getLockedUser(), Utils.getInvalidPassword(), runner.invalidCreds);
+
+            /* LOGIN & FUNC TESTING*/
             runner.login(Utils.getEmail(), Utils.getPassword());
             runner.sortProducts();
             runner.addToCart();
