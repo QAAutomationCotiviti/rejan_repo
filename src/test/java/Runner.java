@@ -62,9 +62,9 @@ public class Runner {
         List<WebElement> descPriceList = dashboardPage.sortProducts(PRICE_HIGH);
 
         displayProducts("ASC LIST", ascList);
-        displayProducts("DESC LIST", descList);
-        displayProducts("ASC PRICE LIST", ascPriceList);
-        displayProducts("DESC PRICE LIST", descPriceList);
+//        displayProducts("DESC LIST", descList);
+//        displayProducts("ASC PRICE LIST", ascPriceList);
+//        displayProducts("DESC PRICE LIST", descPriceList);
 
 
     }
@@ -72,12 +72,27 @@ public class Runner {
     public void addToCart() {
         boolean isProdAdded = orderPage.addToCart();
 //        boolean isProdRemoved = orderPage.removeProduct();
-        boolean isCheckout = orderPage.checkout();
-
         if(isProdAdded) {
             System.out.println("Add to cart/remove successful");
         }
 
+        List<WebElement> items = driver.findElements(By.className("cart_item"));
+        for(WebElement item : items) {
+            String title = item.findElement(By.className("inventory_item_name")).getText();
+            String quantity = item.findElement(By.className("cart_quantity")).getText();
+            String desc = item.findElement(By.className("inventory_item_desc")).getText();
+            String price = item.findElement(By.className("inventory_item_price")).getText();
+
+            System.out.println("Title: " + title);
+            System.out.println("Quantity: " + quantity);
+            System.out.println("Price: " + price);
+            System.out.println("Description: " + desc);
+        }
+//        if(isProdRemoved) {
+//            System.out.println("Product removed");
+//        }
+
+        boolean isCheckout = orderPage.checkout();
         if(isCheckout) {
             System.out.println("Checkout successful");
         }
@@ -94,8 +109,9 @@ public class Runner {
         for(WebElement elem : elements) {
             String title = elem.findElement(By.className("inventory_item_name")).getText();
             String desc = elem.findElement(By.className("inventory_item_desc")).getText();
-            System.out.println("Title:" + title);
-            System.out.println("Description:" + desc);
+
+            System.out.println("Title: " + title);
+            System.out.println("Description: " + desc);
         }
     }
 
