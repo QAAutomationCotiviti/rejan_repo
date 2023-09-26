@@ -1,11 +1,10 @@
 package pages;
 
-import constants.SortValues;
-import driver.SeleniumDriver;
+import constants.sortValues;
+import driver.seleniumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,16 +13,16 @@ import java.time.Duration;
 import java.util.List;
 
 
-public class DashboardPage {
+public class dashboardPage {
     WebDriver driver;
-    private Wait<WebDriver> wait = new WebDriverWait(SeleniumDriver.getInstance(), Duration.ofSeconds(2));
+    private Wait<WebDriver> wait = new WebDriverWait(seleniumDriver.getInstance(), Duration.ofSeconds(2));
 
 
-    public DashboardPage(WebDriver driver) {
+    public dashboardPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public List<WebElement> sortProducts(SortValues sortBy) {
+    public List<WebElement> sortProducts(sortValues sortBy) {
         /*
         WebElement selectElem = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("product_sort_container")));
         selectElem.click();

@@ -1,6 +1,6 @@
 package utils;
 
-public class Utils {
+public class utils {
     private static final String email = "standard_user";
     private static final String password = "secret_sauce";
     private static final String invalidEmail = "secret_sauce";

@@ -1,6 +1,6 @@
 package pages;
 
-import driver.SeleniumDriver;
+import driver.seleniumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,11 +11,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class OrderPage {
+public class orderPage {
     WebDriver driver;
-    private Wait<WebDriver> wait = new WebDriverWait(SeleniumDriver.getInstance(), Duration.ofSeconds(2));
+    private Wait<WebDriver> wait = new WebDriverWait(seleniumDriver.getInstance(), Duration.ofSeconds(2));
 
-    public OrderPage(WebDriver driver) {
+    public orderPage(WebDriver driver) {
         this.driver = driver;
     }
 

@@ -1,6 +1,6 @@
 package constants;
 
-public enum SortValues {
+public enum sortValues {
     NAME_ASC,
     NAME_DESC,
     PRICE_HIGH,

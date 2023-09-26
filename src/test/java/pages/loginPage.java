@@ -1,7 +1,7 @@
 package pages;
 
-import driver.SeleniumDriver;
-import dto.LoginDTO;
+import driver.seleniumDriver;
+import dto.loginDTO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -14,24 +14,24 @@ import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class LoginPage {
+public class loginPage {
     private WebDriver driver;
     private WebElement email;
     private WebElement password;
     private WebElement loginButton;
     private List<WebElement> errorList;
     private final String brandText = "Swag Labs";
-    private Wait<WebDriver> wait = new WebDriverWait(SeleniumDriver.getInstance(), Duration.ofSeconds(2));
+    private Wait<WebDriver> wait = new WebDriverWait(seleniumDriver.getInstance(), Duration.ofSeconds(2));
 
-    public LoginPage(WebDriver driver) {
+    public loginPage(WebDriver driver) {
         this.driver = driver;
         email = driver.findElement(By.id("user-name"));
         password = driver.findElement(By.id("password"));
         loginButton = driver.findElement(By.id("login-button"));
     }
 
-    public LoginDTO login(String email, String password) throws NoSuchElementException {
-        LoginDTO resp = new LoginDTO(); // Initialize the LoginDTO object;
+    public loginDTO login(String email, String password) throws NoSuchElementException {
+        loginDTO resp = new loginDTO(); // Initialize the LoginDTO object;
         this.email.clear();
         this.email.sendKeys(email);
         this.password.clear();

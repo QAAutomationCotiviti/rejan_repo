@@ -3,13 +3,13 @@ package driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class SeleniumDriver {
+public class seleniumDriver {
     public static WebDriver chromeDriver;
 
     public static WebDriver getInstance() {
-        if(SeleniumDriver.chromeDriver == null) {
-            SeleniumDriver.chromeDriver = new ChromeDriver();
+        if(seleniumDriver.chromeDriver == null) {
+            seleniumDriver.chromeDriver = new ChromeDriver();
         }
-        return  SeleniumDriver.chromeDriver;
+        return  seleniumDriver.chromeDriver;
     }
 }
