@@ -1,4 +1,6 @@
 import driver.seleniumDriver;
+import constants.variables;
+import constants.error;
 import dto.loginDTO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,22 +10,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.dashboardPage;
 import pages.loginPage;
 import pages.orderPage;
-import utils.utils;
 
 import java.time.Duration;
 import java.util.List;
-
-import static constants.sortValues.*;
 
 public class runner {
     private WebDriver driver;
     private pages.loginPage loginPage;
     private pages.orderPage orderPage;
     private pages.dashboardPage dashboardPage;
-    private final String invalidCreds = "Epic sadface: Username and password do not match any user in this service";
-    private final String passwordEmpty = "Epic sadface: Password is required";
-    private final String emailEmpty = "Epic sadface: Username is required";
-    private final String lockedUser = "Epic sadface: Sorry, this user has been locked out.";
+
     private Wait<WebDriver> wait = new WebDriverWait(seleniumDriver.getInstance(), Duration.ofSeconds(2));
 
     public runner() {
@@ -54,12 +50,12 @@ public class runner {
     }
 
     public void sortProducts() {
-        List<WebElement> ascList = dashboardPage.sortProducts(NAME_ASC);
-        List<WebElement> descList = dashboardPage.sortProducts(NAME_DESC);
-        List<WebElement> ascPriceList = dashboardPage.sortProducts(PRICE_LOW);
-        List<WebElement> descPriceList = dashboardPage.sortProducts(PRICE_HIGH);
+        List<WebElement> ascList = dashboardPage.sortProducts(variables.sortValues.NAME_ASC);
+        List<WebElement> descList = dashboardPage.sortProducts(variables.sortValues.NAME_DESC);
+        List<WebElement> ascPriceList = dashboardPage.sortProducts(variables.sortValues.PRICE_LOW);
+        List<WebElement> descPriceList = dashboardPage.sortProducts(variables.sortValues.PRICE_HIGH);
 
-        displayProducts("ASC LIST", ascList);
+//        displayProducts("ASC LIST", ascList);
 //        displayProducts("DESC LIST", descList);
 //        displayProducts("ASC PRICE LIST", ascPriceList);
 //        displayProducts("DESC PRICE LIST", descPriceList);
@@ -113,18 +109,18 @@ public class runner {
     public static void main(String[] args) throws Exception {
         runner runner = new runner();
         try {
-            runner.login("", "", runner.emailEmpty);
-            runner.login("", utils.getPassword(), runner.emailEmpty);
-            runner.login(utils.getEmail(), utils.getInvalidPassword(), runner.invalidCreds);
-            runner.login(utils.getInvalidEmail(), utils.getPassword(), runner.invalidCreds);
-            runner.login(utils.getInvalidEmail(), utils.getInvalidPassword(), runner.invalidCreds);
+            runner.login("", "", error.emailEmpty );
+            runner.login("", variables.password , error.emailEmpty );
+            runner.login(variables.email, variables.invalidPassword, error.invalidCreds);
+            runner.login(variables.invalidEmail, variables.password, error.invalidCreds);
+            runner.login(variables.invalidEmail, variables.invalidPassword, error.invalidCreds);
 
             /* LOGIN LOCKED USER*/
-            runner.login(utils.getLockedUser(), utils.getPassword(), runner.lockedUser);
-            runner.login(utils.getLockedUser(), utils.getInvalidPassword(), runner.invalidCreds);
+            runner.login(variables.lockedUser, variables.password, error.lockedUser);
+            runner.login(variables.lockedUser, variables.invalidPassword, error.invalidCreds);
 
             /* LOGIN & FUNC TESTING*/
-            runner.login(utils.getEmail(), utils.getPassword());
+            runner.login(variables.email, variables.password);
             runner.sortProducts();
             runner.addToCart();
 
