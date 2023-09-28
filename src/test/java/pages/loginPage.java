@@ -1,5 +1,6 @@
 package pages;
 
+import constants.variables;
 import driver.seleniumDriver;
 import dto.loginDTO;
 import org.openqa.selenium.By;
@@ -16,36 +17,34 @@ import java.util.NoSuchElementException;
 
 public class loginPage {
     private WebDriver driver;
-    private WebElement email;
-    private WebElement password;
-    private WebElement loginButton;
+    public static final By email = By.id("user-name");
+    public static final By password = By.id("password");
+    public static final By loginBtn = By.id("login-button");
+    private  final By brand = By.className("app_logo");
+    public static final By error = By.xpath("//*[@data-test='error']");
+
     private List<WebElement> errorList;
-    private final String brandText = "Swag Labs";
     private Wait<WebDriver> wait = new WebDriverWait(seleniumDriver.getInstance(), Duration.ofSeconds(2));
 
     public loginPage(WebDriver driver) {
         this.driver = driver;
-        email = driver.findElement(By.id("user-name"));
-        password = driver.findElement(By.id("password"));
-        loginButton = driver.findElement(By.id("login-button"));
     }
 
     public loginDTO login(String email, String password) throws NoSuchElementException {
         loginDTO resp = new loginDTO(); // Initialize the LoginDTO object;
-        this.email.clear();
-        this.email.sendKeys(email);
-        this.password.clear();
-        this.password.sendKeys(password);
-        loginButton.click();
+        driver.findElement(this.email).clear();
+        driver.findElement(this.email).sendKeys(email);
+        driver.findElement(this.password).clear();
+        driver.findElement(this.password).sendKeys(password);
+        driver.findElement(this.loginBtn).click();
         try{
-            WebElement brand =  wait.until(ExpectedConditions.presenceOfElementLocated(By.className("app_logo")));
-            if(brand.getText().equals(brandText)) {
+            WebElement brand =  wait.until(ExpectedConditions.presenceOfElementLocated(this.brand));
+            if(brand.getText().equals(variables.brandText)) {
                 resp.element = brand;
                 resp.status = true;
             }
-
         }catch(TimeoutException e) {
-            WebElement error = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@data-test='error']")));
+            WebElement error = wait.until(ExpectedConditions.presenceOfElementLocated(this.error));
             resp.element = error;
             resp.status = false;
         }
