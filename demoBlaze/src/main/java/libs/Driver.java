@@ -1,7 +1,6 @@
 package libs;
 
 import libs.variables.Commons;
-import demoBlaze.constants.Enums;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
