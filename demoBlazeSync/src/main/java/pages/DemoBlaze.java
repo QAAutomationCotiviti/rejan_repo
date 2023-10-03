@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utilities.Driver;
 
+import java.time.Duration;
+
 public class DemoBlaze {
     static WebDriver driver = Driver.getDriver(FinalEnums.driverType.CHROME);
     static WebDriverWait wait = Driver.getWebdriverWait(driver, FinalVariables.defaultDuration);
@@ -17,7 +19,7 @@ public class DemoBlaze {
             signup.clickSignup();
             signup.userSignup(username,password);
         } catch (Exception ex) {
-//            ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 
